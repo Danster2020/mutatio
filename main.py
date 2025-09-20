@@ -83,6 +83,7 @@ class MyApp(App):
         
         self.folder_path = path
         self.new_file_names = list(self.org_file_names)
+        self.query_one(DataTable).clear()
         for name in self.org_file_names:
             self.query_one(DataTable).add_row(name, name)
         self.update_file_names_table()
