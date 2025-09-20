@@ -22,6 +22,10 @@ class MyApp(App):
     .small-btn {
         border: none;
     }
+    
+    DataTable {
+        overflow: scroll;
+    }
     """
     folder_path: str = ""
     org_file_names: tuple = None
@@ -91,9 +95,9 @@ class MyApp(App):
                 
                 
     def update_file_names_table(self):
+        table = self.query_one(DataTable)
         for i, new_name in enumerate(self.new_file_names):
-            table = self.query_one(DataTable)
-            table.update_cell_at((i, 1), new_name)
+            table.update_cell_at((i, 1), new_name, update_width=True)
             
             
     def filter_file_names(self):
