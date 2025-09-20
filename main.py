@@ -23,10 +23,9 @@ class MyApp(App):
         border: none;
     }
     """
-    # org_file_names = tuple(os.listdir("./my_files"))
+    folder_path: str = ""
     org_file_names: tuple = None
     new_file_names: list = None
-    # new_file_names = list(org_file_names)
     
     
     def compose(self) -> ComposeResult:
@@ -82,6 +81,7 @@ class MyApp(App):
             self.write_to_log("Could not find path!")
             return
         
+        self.folder_path = path
         self.new_file_names = list(self.org_file_names)
         for name in self.org_file_names:
             self.query_one(DataTable).add_row(name, name)
@@ -106,7 +106,9 @@ class MyApp(App):
             
     def export_file_names(self):
         for i, org_name in enumerate(self.org_file_names):
-            os.rename(org_name, self.new_file_names[i])
+            org_file_name_full_path = self.folder_path + "/" + org_name
+            new_file_name_full_path = self.folder_path + "/" + self.new_file_names[i]
+            os.rename(org_file_name_full_path, new_file_name_full_path)
         self.write_to_log("Files have been renamed!")
 
     @on(Button.Pressed, "#quit_button")
@@ -136,7 +138,7 @@ class MyApp(App):
 
     @on(Button.Pressed, "#export_names_button")
     def export_names_action(self):
-        self.export_file_names
+        self.export_file_names()
         
         
 # def main():
