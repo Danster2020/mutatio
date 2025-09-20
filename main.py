@@ -5,16 +5,12 @@ from collections import namedtuple
 
 from textual import on
 from textual.app import App, ComposeResult
-from textual.widgets import DataTable, Button, Input, Label, Header, Footer
+from textual.widgets import DataTable, Button, Input, Label, Header, Footer, Rule
 from textual.reactive import reactive
 from textual.containers import Horizontal, Vertical, HorizontalGroup, Right, Center, VerticalScroll
 
 class MyApp(App):
-    CSS = """
-    .with-border {
-        border: heavy green;
-    }
-    
+    CSS = """    
     HorizontalGroup {
         height: 6;
     }
@@ -42,6 +38,7 @@ class MyApp(App):
         yield Label("Folder Path")
         yield Input(placeholder="/etc/...", id="folder_path")
         yield Button("Load", id="load_files_button")
+        yield Rule(line_style="heavy")
         
         # file name filtering section
         with HorizontalGroup(classes="with-border"):
@@ -55,6 +52,7 @@ class MyApp(App):
             yield Button("Filter", id="filter_button")
             with Right():
                 yield Button("Reset", id="reset_button")
+        yield Rule(line_style="heavy")
         
         # file name table section
         yield Label("Files")
