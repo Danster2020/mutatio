@@ -3,6 +3,7 @@ from textual import on
 from textual.app import App, ComposeResult
 from textual.widgets import DataTable, Button, Input, Label, Header, Footer, Rule
 from textual.containers import Horizontal, Vertical, HorizontalGroup, Right, Center, VerticalScroll
+from rich.text import Text
 
 #from version import __version__
 from controller import Controller
@@ -68,7 +69,10 @@ class MyApp(App):
         table = self.query_one(DataTable)
         table.clear()
         for org, new in zip(self.store.org_file_names, self.store.new_file_names):
-            table.add_row(org, new)
+            new_name = new
+            if org != new:
+                new_name = Text(new, style="yellow")
+            table.add_row(org, new_name)
 
     @on(Button.Pressed, "#quit_button")
     def quit_button_action(self):
