@@ -100,3 +100,4 @@ class MyApp(App):
     def export_names_action(self):
         self.controller.export_file_names()
         self.write_to_log("Files have been renamed!")
+        self.load_files_action()
